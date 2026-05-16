@@ -3,233 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اسمارٹ اے آئی علمی معجم و لغت ساز</title>
+    <title>آسان ترجمہ مقامات - لغت سسٹم</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Noto+Sans+Arabic:wght@400;700&display=swap');
-        
-        body {
-            font-family: 'Noto Sans Arabic', sans-serif;
-            background-color: #f4f7f6;
-            margin: 0;
-            padding: 20px;
-            color: #333;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-        h1 {
-            font-family: 'Noto Nastaliq Urdu', serif;
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 30px;
-            line-height: 2;
-        }
-        .mode-container {
-            background: #eef2f7;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: flex;
-            gap: 20px;
-            align-items: center;
-            border: 1px solid #dcdde1;
-        }
-        .mode-title {
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        .radio-group {
-            display: flex;
-            gap: 20px;
-        }
-        .radio-label {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-            font-size: 15px;
-        }
-        textarea {
-            width: 100%;
-            height: 150px;
-            padding: 15px;
-            border: 2px solid #bdc3c7;
-            border-radius: 8px;
-            font-size: 16px;
-            font-family: 'Noto Sans Arabic', sans-serif;
-            box-sizing: border-box;
-            resize: vertical;
-        }
-        button {
-            background-color: #27ae60;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 15px;
-            transition: background 0.2s;
-        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f6f9; margin: 0; padding: 20px; text-align: center; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; margin-bottom: 20px; }
+        textarea { width: 100%; height: 150px; padding: 10px; border: 2px solid #bdc3c7; border-radius: 5px; font-size: 16px; resize: none; box-sizing: border-box; }
+        button { background-color: #27ae60; color: white; border: none; padding: 12px 25px; font-size: 16px; border-radius: 5px; cursor: pointer; margin-top: 15px; width: 100%; transition: 0.3s; }
         button:hover { background-color: #219653; }
-        .output-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-            margin-top: 30px;
-        }
-        .box {
-            background: #fafafa;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 20px;
-            height: 500px;
-            overflow-y: auto;
-        }
-        .box h3 {
-            margin-top: 0;
-            color: #2980b9;
-            border-bottom: 2px solid #2980b9;
-            padding-bottom: 8px;
-            font-family: 'Noto Nastaliq Urdu', serif;
-        }
-        .root-item {
-            background: white;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 6px;
-            border-right: 5px solid #2980b9;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-        }
-        .root-badge {
-            background: #2980b9;
-            color: white;
-            padding: 3px 10px;
-            border-radius: 4px;
-            font-weight: bold;
-            font-size: 16px;
-        }
-        .ai-text {
-            margin-top: 10px;
-            background: #fdfefe;
-            padding: 10px;
-            border-radius: 4px;
-            border: 1px dashed #bdc3c7;
-            font-size: 14px;
-            line-height: 1.6;
-            color: #2c3e50;
-        }
-        .index-item {
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-            font-size: 15px;
-        }
-        .highlight {
-            background-color: #f1c40f;
-            padding: 0 4px;
-            border-radius: 3px;
-            font-weight: bold;
-        }
+        #result { margin-top: 25px; text-align: right; padding: 15px; background: #e8f8f5; border-right: 5px solid #2cc990; border-radius: 4px; display: none; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>🤖 اسمارٹ اے آئی علمی معجم و لغت ساز</h1>
-    
-    <div class="mode-container">
-        <div class="mode-title">🎯 اے آئی ریسرچ کا طریقہ منتخب کریں:</div>
-        <div class="radio-group">
-            <label class="radio-label">
-                <input type="radio" name="ai_mode" value="restricted" checked>
-                🔒 <b>محدود معجم (صرف میرا ڈیٹا)</b> - اے آئی صرف فراہم کردہ متن تک محصور رہے گا۔
-            </label>
-            <label class="radio-label">
-                <input type="radio" name="ai_mode" value="global">
-                🌐 <b>عالمی AI سرچ</b> - اے آئی اپنے پورے کھلے علمی دماغ سے لغوی و نحوی تشریح کرے گا۔
-            </label>
-        </div>
-    </div>
+    <h1>مقامات حریری - لغت سرچ سسٹم</h1>
+    <textarea id="textInput" placeholder="یہاں عربی عبارت یا لفظ لکھیں..."></textarea>
+    <button onclick="processText()">لغت میں تلاش کریں</button>
 
-    <textarea id="textInput" placeholder="مقاماتِ حریری کی عربی عبارت یا کوئی بھی متن یہاں پیسٹ کریں..."></textarea>
-    <button onclick="generateLexicon()">🚀 خودکار اعراب لگائیں اور معجم تیار کریں</button>
-
-    <div class="output-section">
-        <div class="box" id="lexiconBox">
-            <h3>📖 علمی لغت اور ادبی تشریح</h3>
-            <div id="lexiconContent">عبارت پیسٹ کر کے بٹن دبائیں...</div>
-        </div>
-        
-        <div class="box" id="indexBox">
-            <h3>🔍 الف بائی اشاریہ (سیاق و سباق)</h3>
-            <div id="indexContent">یہاں الفاظ کے آگے پیچھے کے جملے ترتیب سے آئیں گے...</div>
-        </div>
+    <div id="result">
+        <h3>نتائج:</h3>
+        <p id="resultText"></p>
     </div>
 </div>
 
 <script>
-    async function generateLexicon() {
-        const text = document.getElementById('textInput').value;
-        const mode = document.querySelector('input[name="ai_mode"]:checked').value;
-        
-        if (!text.trim()) {
-            alert('براہ کرم پہلے کچھ متن پیسٹ کریں!');
+    async function processText() {
+        const textInput = document.getElementById('textInput').value;
+        const resultDiv = document.getElementById('result');
+        const resultText = document.getElementById('resultText');
+
+        if (!textInput.trim()) {
+            alert('براہ کرم کچھ عبارت لکھیے!');
             return;
         }
 
-        document.getElementById('lexiconContent').innerHTML = '⏳ پائتھن سرور اعراب لگا رہا ہے اور اے آئی لغت تیار کر رہا ہے... براہِ کرم چند سیکنڈ انتظار فرمائیں۔';
-        document.getElementById('indexContent').innerHTML = '⏳ اشاریہ ترتیب دیا جا رہا ہے...';
+        resultText.innerText = 'تلاش جاری ہے...';
+        resultDiv.style.display = 'block';
 
         try {
-            const response = await fetch('http://127.0.0.1:5000/api/process-text', {
+            // یہاں ہم نے مستقل آن لائن سرور کے لیے پاتھ درست کر دیا ہے
+            const response = await fetch('/api/process-text', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' }, // یہاں درست میڈیا ٹائپ ڈال دی گئی ہے
-                body: JSON.stringify({ text: text, ai_mode: mode })
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text: textInput })
             });
+
+            if (!response.ok) {
+                throw new Error('سرور کی طرف سے خرابی: ' + response.status);
+            }
 
             const data = await response.json();
-            if (data.error) {
-                document.getElementById('lexiconContent').innerHTML = '⚠️ خرابی: ' + data.error;
-                return;
-            }
-
-            let lexHtml = '';
-            for (const root in data.lexicon) {
-                lexHtml += `
-                    <div class="root-item">
-                        <span class="root-badge">[ مادہ: ${root} ]</span>
-                        <div style="margin-top:8px;"><b>متن میں آئے الفاظ:</b> ${data.lexicon[root].words.join(', ')}</div>
-                        <div class="ai-text"><b>🤖 AI علمی تحقیق:</b><br>${data.lexicon[root].ai_notes.replace(/\n/g, '<br>')}</div>
-                    </div>
-                `;
-            }
-            document.getElementById('lexiconContent').innerHTML = lexHtml || 'کوئی مادہ نہیں ملا۔';
-
-            let idxHtml = '';
-            data.index.forEach(item => {
-                let contextHtml = item.context
-                    .replace('__START_HIGHLIGHT__', '<span class="highlight">')
-                    .replace('__END_HIGHLIGHT__', '</span>');
-                idxHtml += `
-                    <div class="index-item">
-                        <b>${item.clean_word}</b> <small style="color:#7f8c8d;">(مادہ: ${item.root_key})</small><br>
-                        <span dir="rtl">${contextHtml}</span>
-                    </div>
-                `;
-            });
-            document.getElementById('indexContent').innerHTML = idxHtml || 'اشاریہ خالی ہے۔';
-
-        } catch (err) {
-            document.getElementById('lexiconContent').innerHTML = '⚠️ پائتھن سرور سے رابطہ نہیں ہو سکا۔ کالی اسکرین پر جا کر "python app.py" دوبارہ چلائیں۔';
+            resultText.innerText = data.result || 'کوئی نتیجہ نہیں ملا۔';
+        } catch (error) {
+            resultText.innerText = 'خرابی: ' + error.message;
         }
     }
 </script>
+
 </body>
 </html>
