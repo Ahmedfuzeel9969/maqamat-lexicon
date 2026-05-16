@@ -1,0 +1,5 @@
+Flask==3.0.2
+Flask-CORS==4.0.0
+google-genai==0.1.1
+pytesseract==0.3.10
+gunicorn==21.2.0
